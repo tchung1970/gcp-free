@@ -281,7 +281,38 @@ def create_vm(vm_name="free-tier", machine_type="e2-micro"):
         # VM doesn't exist, proceed with creation
         pass
     
-    image = DEFAULT_IMAGE
+    # Get available images using same command as image listing
+    cmd = "gcloud compute images list --filter=\"name~ubuntu AND architecture=X86_64\" --format=\"value(name)\" | egrep '2204|2404' | egrep -v 'accelerator|pro|minimal'"
+    standard_output = subprocess.check_output(cmd, shell=True, text=True).strip()
+    available_images = standard_output.splitlines() if standard_output else []
+    
+    # Create image options with descriptions
+    images = []
+    for img in available_images:
+        if "2204" in img:
+            desc = "Ubuntu 22.04 LTS Standard"
+        elif "2404" in img:
+            desc = "Ubuntu 24.04 LTS Standard"
+        else:
+            desc = "Ubuntu LTS Standard"
+        images.append((img, desc))
+    
+    print("Available Ubuntu Images:")
+    for i, (img, desc) in enumerate(images, 1):
+        marker = " (default)" if img == DEFAULT_IMAGE else ""
+        print(f"  {i}. {img}{marker}")
+    
+    while True:
+        choice = input(f"Choose image (1-{len(images)}): ").strip()
+        if choice.isdigit():
+            idx = int(choice) - 1
+            if 0 <= idx < len(images):
+                image = images[idx][0]
+                break
+            else:
+                print(f"Please enter a number between 1 and {len(images)}")
+        else:
+            print(f"Please enter a number between 1 and {len(images)}")
     
     # Get user-friendly image name for display
     if "2204" in image and "minimal" in image:
@@ -317,6 +348,7 @@ def create_vm(vm_name="free-tier", machine_type="e2-micro"):
         spinner.succeed(f"VM '{vm_name}' created successfully!")
         if result.stdout:
             print(result.stdout)
+        print("💡 Wait 1-2 minutes after creation before SSH")
         print()  # Add extra blank line
     except subprocess.CalledProcessError as e:
         spinner.fail(f"Failed to create VM '{vm_name}'")
