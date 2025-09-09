@@ -33,7 +33,7 @@ A simple Python utility for managing Google Cloud Platform Free Tier virtual mac
 # List available Ubuntu images
 python3 gcp-free.py image
 
-# Create a Free Tier VM (takes 2-3 minutes)
+# Create a Free Tier VM (takes 3-4 minutes with preparation)
 python3 gcp-free.py create
 
 # SSH into your VM
@@ -108,7 +108,7 @@ If dependencies are missing, it provides platform-specific installation guidance
 # Configure your GCP project
 python3 gcp-free.py set
 
-# Create your first VM (will prompt for image selection)
+# Create your first VM (prompts for image, includes 1-min preparation)
 python3 gcp-free.py create
 
 # Connect to it

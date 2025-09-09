@@ -23,7 +23,7 @@ python3 gcp-free.py <command>
 - `python3 gcp-free.py list` - List current VM instances
 - `python3 gcp-free.py image` - List available Ubuntu LTS AMD64 Standard images with default marker
 - `python3 gcp-free.py set` - Interactive configuration of project and image settings
-- `python3 gcp-free.py create` - Create 'free-tier' VM with interactive image selection (2-3 minutes)
+- `python3 gcp-free.py create` - Create 'free-tier' VM with interactive image selection and automatic VM preparation (3-4 minutes)
 - `python3 gcp-free.py ssh` - SSH into the 'free-tier' VM
 - `python3 gcp-free.py delete` - Delete the 'free-tier' VM with 3-minute timeout
 
@@ -54,7 +54,7 @@ Use `python3 gcp-free.py set` for guided configuration:
 - **Progress indication**: Custom Spinner class with animated progress feedback
 
 ### Core Functions
-- `create_vm()` - VM creation with existence check, interactive image selection, and user-friendly naming
+- `create_vm()` - VM creation with existence check, interactive image selection, automatic preparation wait, and user-friendly naming
 - `ssh_vm()` - SSH connection to VM with existence validation
 - `delete_vm()` - VM deletion with timeout and console fallback URLs
 - `list_ubuntu_images()` - Filtered Ubuntu LTS AMD64 Standard image discovery with default markers
