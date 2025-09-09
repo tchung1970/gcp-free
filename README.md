@@ -53,7 +53,7 @@ python3 gcp-free.py delete
 | `list` | List current VM instances |
 | `image` | List available Ubuntu LTS AMD64 images |
 | `set` | Configure GCP project and default image |
-| `create` | Create 'free-tier' VM with optimal defaults |
+| `create` | Create 'free-tier' VM with interactive image selection |
 | `ssh` | SSH into the 'free-tier' VM |
 | `delete` | Delete the 'free-tier' VM |
 
@@ -108,7 +108,7 @@ If dependencies are missing, it provides platform-specific installation guidance
 # Configure your GCP project
 python3 gcp-free.py set
 
-# Create your first VM
+# Create your first VM (will prompt for image selection)
 python3 gcp-free.py create
 
 # Connect to it
