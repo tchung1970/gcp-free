@@ -348,7 +348,7 @@ def create_vm(vm_name="free-tier", machine_type="e2-micro"):
         spinner.succeed(f"VM '{vm_name}' created successfully!")
         if result.stdout:
             print(result.stdout)
-        print("💡 Wait 1-2 minutes after creation before SSH")
+        print("💡 Wait at least 1 min before ssh to your new VM")
         print()  # Add extra blank line
     except subprocess.CalledProcessError as e:
         spinner.fail(f"Failed to create VM '{vm_name}'")
